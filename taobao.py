@@ -8,6 +8,21 @@ from selenium.webdriver import ActionChains
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+class github():
+    def __init__(self):
+        self.browser = webdriver.Chrome("chromedriver.exe")
+        self.browser.maximize_window()   # 最大化窗口
+        # self.browser.implicitly_wait(1)  # 隐式等待1秒
+        self.domain = 'https://github.com/'
+        self.action_chains = ActionChains(self.browser)
+
+    def login(self, username, password):
+        self.browser.get(self.domain)
+        self.browser.find_element_by_xpath('/html/body/div[1]/header/div/div[2]/div[2]/a[1]').click()
+        self.browser.find_element_by_xpath('//*[@id="login_field"]').send_keys(username)
+        self.browser.find_element_by_xpath('//*[@id="password"]').send_keys(password)
+        self.browser.find_element_by_xpath('//*[@id="login"]/form/div[4]/input[9]').click()
+
 class taobao():
     def __init__(self):
         self.browser = webdriver.Chrome("chromedriver.exe")
@@ -46,5 +61,7 @@ class taobao():
 if __name__ == '__main__':
     username = '123456'
     password = '!@#$%^'
-    tb = taobao()
-    tb.login(username, password)
+    # tb = taobao()
+    # tb.login(username, password)
+    git = github()
+    git.login(username, password)
